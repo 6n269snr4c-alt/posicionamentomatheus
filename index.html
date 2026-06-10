@@ -3,9 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Playbook — Matheus Duarte</title>
+<title>Playbook + Tracker — Matheus Duarte</title>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet">
 <style>
+/* ─── RESET GLOBAL ─────────────────────────────────────────── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Bricolage Grotesque', sans-serif; background: #080808; color: #fff; min-height: 100vh; overflow-x: hidden; }
+::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: #111; } ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
+
+/* ─── TOP NAV ──────────────────────────────────────────────── */
+.top-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: #0a0a0a; border-bottom: 1px solid rgba(255,255,255,0.07);
+  display: flex; align-items: center; height: 48px; padding: 0 20px; gap: 0;
+}
+.top-nav-brand {
+  font-size: 12px; font-weight: 800; color: #C8FF00;
+  letter-spacing: 0.1em; text-transform: uppercase; margin-right: 24px;
+  white-space: nowrap;
+}
+.top-nav-tabs { display: flex; gap: 2px; }
+.top-tab {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 12px; font-weight: 600; padding: 0 18px; height: 48px;
+  border: none; background: transparent; color: rgba(255,255,255,0.4);
+  cursor: pointer; border-bottom: 2px solid transparent;
+  transition: all 0.15s; letter-spacing: 0.02em;
+}
+.top-tab:hover { color: rgba(255,255,255,0.75); }
+.top-tab.active { color: #C8FF00; border-bottom-color: #C8FF00; }
+
+/* ─── TAB PANELS ───────────────────────────────────────────── */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* offset para o top nav fixo */
+.tab-playbook { padding-top: 48px; }
+.tab-tracker  { padding-top: 48px; }
+
+/* ─── PLAYBOOK CSS ─────────────────────────────────────────── */
+
 :root{--black:#080808;--black2:#111111;--black3:#1a1a1a;--card:#141414;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);--green:#C8FF00;--green2:rgba(200,255,0,0.12);--green3:rgba(200,255,0,0.06);--white:#ffffff;--gray1:rgba(255,255,255,0.75);--gray2:rgba(255,255,255,0.5);--gray3:rgba(255,255,255,0.3);--li-color:#0a66c2;--li-bg:rgba(10,102,194,0.12);--ig-color:#e1306c;--ig-bg:rgba(225,48,108,0.1);--font:'Bricolage Grotesque',sans-serif;}
 *{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}body{font-family:var(--font);background:var(--black);color:var(--white);min-height:100vh;overflow-x:hidden;}
 ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--black2);}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
@@ -164,9 +202,150 @@
 .ig-swatch{border-radius:10px;padding:14px 18px;font-size:12px;font-weight:600;min-width:120px;}
 .ig-swatch .swatch-hex{font-size:10px;font-weight:400;opacity:.7;margin-top:3px;}
 
+
+
+/* ─── TRACKER CSS (scoped) ─────────────────────────────────── */
+.tab-tracker {
+  --black: #080808; --black2: #111111; --black3: #181818; --card: #141414;
+  --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.13);
+  --green: #C8FF00; --green2: rgba(200,255,0,0.1); --green3: rgba(200,255,0,0.05);
+  --white: #ffffff; --g1: rgba(255,255,255,0.75); --g2: rgba(255,255,255,0.5); --g3: rgba(255,255,255,0.3);
+  --li: #0a66c2; --li-bg: rgba(10,102,194,0.1); --ig: #e1306c; --ig-bg: rgba(225,48,108,0.1);
+  --font: 'Bricolage Grotesque', sans-serif;
+  --s0: rgba(255,255,255,0.08); --s0t: rgba(255,255,255,0.35);
+  --s1: rgba(251,191,36,0.12);  --s1t: #fbbf24;
+  --s2: rgba(99,179,237,0.12);  --s2t: #63b3ed;
+  --s3: rgba(167,139,250,0.12); --s3t: #a78bfa;
+  --s4: rgba(200,255,0,0.12);   --s4t: #C8FF00;
+  --s5: rgba(52,211,153,0.12);  --s5t: #34d399;
+}
+
+/* Tracker-specific styles — prefixed to avoid conflicts */
+.tab-tracker .tr-header {
+  background: var(--black2); border-bottom: 1px solid var(--border);
+  padding: 14px 24px; display: flex; align-items: center; gap: 16px;
+  position: sticky; top: 48px; z-index: 100;
+}
+.tab-tracker .tr-header-logo { font-size: 13px; font-weight: 700; color: var(--green); letter-spacing: 0.08em; text-transform: uppercase; }
+.tab-tracker .tr-header-sub  { font-size: 12px; color: var(--g3); }
+.tab-tracker .tr-header-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.tab-tracker .progress-wrap  { display: flex; align-items: center; gap: 8px; }
+.tab-tracker .progress-label { font-size: 11px; color: var(--g3); }
+.tab-tracker .progress-track { width: 120px; height: 4px; background: var(--border2); border-radius: 2px; overflow: hidden; }
+.tab-tracker .progress-fill  { height: 100%; background: var(--green); border-radius: 2px; transition: width 0.4s; }
+.tab-tracker .progress-pct   { font-size: 11px; font-weight: 700; color: var(--green); min-width: 30px; }
+.tab-tracker .btn-add {
+  background: var(--green); color: var(--black); font-family: var(--font);
+  font-size: 12px; font-weight: 700; border: none; border-radius: 7px;
+  padding: 7px 14px; cursor: pointer; transition: opacity 0.15s;
+}
+.tab-tracker .btn-add:hover { opacity: 0.85; }
+.tab-tracker .tr-filters {
+  padding: 12px 24px; border-bottom: 1px solid var(--border);
+  display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+  background: var(--black); position: sticky; top: 96px; z-index: 99;
+}
+.tab-tracker .filter-label { font-size: 10px; font-weight: 700; color: var(--g3); letter-spacing: 0.08em; text-transform: uppercase; margin-right: 4px; }
+.tab-tracker .filter-btn {
+  font-family: var(--font); font-size: 11px; font-weight: 600;
+  padding: 5px 12px; border-radius: 20px; border: 1px solid var(--border2);
+  background: transparent; color: var(--g2); cursor: pointer; transition: all 0.15s;
+}
+.tab-tracker .filter-btn:hover { color: var(--white); border-color: var(--g3); }
+.tab-tracker .filter-btn.active { color: var(--black); background: var(--green); border-color: var(--green); }
+.tab-tracker .filter-btn.f-li.active { background: var(--li); border-color: var(--li); color: white; }
+.tab-tracker .filter-btn.f-ig.active { background: var(--ig); border-color: var(--ig); color: white; }
+.tab-tracker .filter-sep { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
+.tab-tracker .kanban {
+  display: flex; gap: 10px; padding: 20px 24px;
+  overflow-x: auto; min-height: calc(100vh - 180px); align-items: flex-start;
+}
+.tab-tracker .kanban::-webkit-scrollbar { height: 4px; }
+.tab-tracker .col {
+  flex-shrink: 0; width: 240px; background: var(--black2);
+  border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+}
+.tab-tracker .col-header { padding: 12px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+.tab-tracker .col-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.tab-tracker .col-title { font-size: 12px; font-weight: 700; color: var(--white); flex: 1; }
+.tab-tracker .col-count { font-size: 11px; font-weight: 700; color: var(--g3); background: var(--border); padding: 1px 7px; border-radius: 10px; }
+.tab-tracker .col-body { padding: 10px; display: flex; flex-direction: column; gap: 8px; min-height: 80px; }
+.tab-tracker .post-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px; cursor: pointer;
+  transition: all 0.15s; user-select: none;
+}
+.tab-tracker .post-card:hover { border-color: var(--border2); transform: translateY(-1px); }
+.tab-tracker .post-card.hidden { display: none; }
+.tab-tracker .pc-top { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
+.tab-tracker .pc-channel { font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 3px; letter-spacing: 0.05em; text-transform: uppercase; flex-shrink: 0; margin-top: 1px; }
+.tab-tracker .ch-li { background: var(--li-bg); color: #7eb3d4; }
+.tab-tracker .ch-ig { background: var(--ig-bg); color: var(--ig); }
+.tab-tracker .pc-title { font-size: 12px; font-weight: 600; color: var(--white); line-height: 1.4; flex: 1; }
+.tab-tracker .pc-meta { font-size: 10px; color: var(--g3); margin-bottom: 8px; }
+.tab-tracker .pc-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 8px; }
+.tab-tracker .pc-tag { font-size: 9px; color: var(--g3); background: var(--black2); border: 1px solid var(--border); padding: 1px 6px; border-radius: 3px; }
+.tab-tracker .pc-steps { display: flex; gap: 3px; }
+.tab-tracker .step { width: 18px; height: 4px; border-radius: 2px; background: var(--border); transition: background 0.2s; }
+.tab-tracker .step.done { background: var(--green); }
+.tab-tracker .pc-preview { font-size: 11px; color: var(--g3); line-height: 1.5; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); font-style: italic; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.tab-tracker .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
+.tab-tracker .overlay.open { display: flex; }
+.tab-tracker .modal { background: var(--black2); border: 1px solid var(--border2); border-radius: 16px; width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; }
+.tab-tracker .modal-header { padding: 18px 20px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+.tab-tracker .modal-title { font-size: 15px; font-weight: 700; color: var(--white); flex: 1; line-height: 1.3; }
+.tab-tracker .modal-close { width: 28px; height: 28px; border-radius: 6px; background: var(--border); border: none; color: var(--g2); cursor: pointer; font-size: 14px; font-family: var(--font); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.tab-tracker .modal-close:hover { background: var(--border2); color: var(--white); }
+.tab-tracker .modal-body { padding: 18px 20px; }
+.tab-tracker .field { margin-bottom: 14px; }
+.tab-tracker .field-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--g3); margin-bottom: 6px; display: block; }
+.tab-tracker .field input,
+.tab-tracker .field textarea,
+.tab-tracker .field select {
+  width: 100%; background: var(--black3); border: 1px solid var(--border2);
+  border-radius: 8px; color: var(--white); font-family: var(--font);
+  font-size: 13px; padding: 10px 12px; outline: none;
+  transition: border-color 0.15s; resize: vertical;
+}
+.tab-tracker .field input:focus,
+.tab-tracker .field textarea:focus,
+.tab-tracker .field select:focus { border-color: var(--green); }
+.tab-tracker .field textarea { min-height: 80px; line-height: 1.6; }
+.tab-tracker .field select option { background: var(--black3); }
+.tab-tracker .steps-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+.tab-tracker .step-btn { display: flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--border2); background: transparent; font-family: var(--font); font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.15s; color: var(--g2); }
+.tab-tracker .step-btn:hover { border-color: var(--g3); color: var(--white); }
+.tab-tracker .step-btn .step-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.tab-tracker .foto-hints { background: var(--black3); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-bottom: 14px; }
+.tab-tracker .foto-hints-title { font-size: 10px; font-weight: 700; color: var(--g3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+.tab-tracker .foto-hints-text { font-size: 12px; color: var(--g2); line-height: 1.7; }
+.tab-tracker .foto-hints-text strong { color: var(--white); font-weight: 600; }
+.tab-tracker .modal-actions { display: flex; gap: 8px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+.tab-tracker .btn-save { flex: 1; background: var(--green); color: var(--black); font-family: var(--font); font-size: 13px; font-weight: 700; border: none; border-radius: 8px; padding: 10px; cursor: pointer; transition: opacity 0.15s; }
+.tab-tracker .btn-save:hover { opacity: 0.85; }
+.tab-tracker .btn-delete { background: rgba(239,68,68,0.1); color: rgba(239,68,68,0.7); font-family: var(--font); font-size: 13px; font-weight: 600; border: 1px solid rgba(239,68,68,0.2); border-radius: 8px; padding: 10px 16px; cursor: pointer; transition: all 0.15s; }
+.tab-tracker .btn-delete:hover { background: rgba(239,68,68,0.2); color: #ef4444; }
+.tab-tracker .btn-cancel { background: var(--border); color: var(--g2); font-family: var(--font); font-size: 13px; font-weight: 600; border: none; border-radius: 8px; padding: 10px 16px; cursor: pointer; }
+.tab-tracker .btn-cancel:hover { background: var(--border2); color: var(--white); }
+.tab-tracker .empty { padding: 20px 10px; text-align: center; color: var(--g3); font-size: 12px; line-height: 1.6; }
+.tab-tracker .add-modal { background: var(--black2); border: 1px solid var(--border2); border-radius: 16px; width: 100%; max-width: 480px; }
+.tab-tracker .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--green); color: var(--black); font-family: var(--font); font-size: 13px; font-weight: 700; padding: 10px 20px; border-radius: 8px; z-index: 300; opacity: 0; transition: opacity 0.2s; pointer-events: none; }
+.tab-tracker .toast.show { opacity: 1; }
 </style>
 </head>
 <body>
+
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <div class="top-nav-brand">⚡ MD</div>
+  <div class="top-nav-tabs">
+    <button class="top-tab active" onclick="switchTab('playbook', this)">📋 Playbook</button>
+    <button class="top-tab" onclick="switchTab('tracker', this)">🎯 Tracker de Posts</button>
+  </div>
+</nav>
+
+<!-- PLAYBOOK TAB -->
+<div class="tab-panel tab-playbook active" id="tab-playbook">
 <div class="layout">
 <nav class="sidebar">
   <div class="sidebar-logo">
@@ -1439,8 +1618,110 @@ O que estou construindo:
 
 </main>
 </div>
+</div>
+
+<!-- TRACKER TAB -->
+<div class="tab-panel tab-tracker" id="tab-tracker">
+
+  <div class="tr-header">
+    <div>
+      <div class="tr-header-logo">🎯 Tracker de Posts</div>
+      <div class="tr-header-sub">Matheus Duarte · LinkedIn + Instagram</div>
+    </div>
+    <div class="tr-header-right">
+      <div class="progress-wrap">
+        <span class="progress-label">Publicados</span>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <span class="progress-pct" id="progressPct">0%</span>
+      </div>
+      <button class="btn-add" onclick="openTrackerAdd()">+ Novo post</button>
+    </div>
+  </div>
+
+  <div class="tr-filters">
+    <span class="filter-label">Canal:</span>
+    <button class="filter-btn active" onclick="setTrackerFilter('canal','all',this)">Todos</button>
+    <button class="filter-btn f-li" onclick="setTrackerFilter('canal','li',this)">LinkedIn</button>
+    <button class="filter-btn f-ig" onclick="setTrackerFilter('canal','ig',this)">Instagram</button>
+    <div class="filter-sep"></div>
+    <span class="filter-label">Fase:</span>
+    <button class="filter-btn active" onclick="setTrackerFilter('fase','all',this)">Todas</button>
+    <button class="filter-btn" onclick="setTrackerFilter('fase','fase0',this)">Fase 0 · IG</button>
+    <button class="filter-btn" onclick="setTrackerFilter('fase','mes1',this)">Mês 1</button>
+    <button class="filter-btn" onclick="setTrackerFilter('fase','mes2',this)">Mês 2</button>
+    <button class="filter-btn" onclick="setTrackerFilter('fase','mes3',this)">Mês 3</button>
+  </div>
+
+  <div class="kanban" id="kanban">
+    <div class="col" id="col-0"><div class="col-header"><div class="col-dot" style="background:rgba(255,255,255,0.35)"></div><div class="col-title">Não iniciado</div><div class="col-count" id="cnt-0">0</div></div><div class="col-body" id="body-0"></div></div>
+    <div class="col" id="col-1"><div class="col-header"><div class="col-dot" style="background:#fbbf24"></div><div class="col-title">Foto escolhida</div><div class="col-count" id="cnt-1">0</div></div><div class="col-body" id="body-1"></div></div>
+    <div class="col" id="col-2"><div class="col-header"><div class="col-dot" style="background:#63b3ed"></div><div class="col-title">Preset aplicado</div><div class="col-count" id="cnt-2">0</div></div><div class="col-body" id="body-2"></div></div>
+    <div class="col" id="col-3"><div class="col-header"><div class="col-dot" style="background:#a78bfa"></div><div class="col-title">Legenda pronta</div><div class="col-count" id="cnt-3">0</div></div><div class="col-body" id="body-3"></div></div>
+    <div class="col" id="col-4"><div class="col-header"><div class="col-dot" style="background:#C8FF00"></div><div class="col-title">Pronto p/ publicar</div><div class="col-count" id="cnt-4">0</div></div><div class="col-body" id="body-4"></div></div>
+    <div class="col" id="col-5"><div class="col-header"><div class="col-dot" style="background:#34d399"></div><div class="col-title">Publicado ✓</div><div class="col-count" id="cnt-5">0</div></div><div class="col-body" id="body-5"></div></div>
+  </div>
+
+  <!-- EDIT MODAL -->
+  <div class="overlay" id="editOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" id="modalTitle">Post</div>
+        <button class="modal-close" onclick="closeTrackerEdit()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="field"><label class="field-label">Status</label><div class="steps-row" id="statusBtns"></div></div>
+        <div class="field"><label class="field-label">Foto — descrição (ex: "selfie no escritório, luz da janela")</label><input type="text" id="fieldFoto" placeholder="Descreva qual foto você escolheu..."></div>
+        <div class="foto-hints-wrap" id="fotoHints"></div>
+        <div class="field"><label class="field-label">Preset aplicado</label><select id="fieldPreset"><option value="">— não aplicado —</option><option value="quente">Preset quente (família, fé, cotidiano)</option><option value="frio">Preset frio (trabalho, bastidor, Fast)</option></select></div>
+        <div class="field"><label class="field-label">Legenda</label><textarea id="fieldLegenda" placeholder="Escreva ou ajuste a legenda aqui..."></textarea></div>
+        <div class="field"><label class="field-label">Data de publicação</label><input type="date" id="fieldData"></div>
+        <div class="field"><label class="field-label">Notas pessoais</label><textarea id="fieldNotas" placeholder="Lembretes, ideias, ajustes pendentes..." style="min-height:60px;"></textarea></div>
+        <div class="modal-actions">
+          <button class="btn-save" onclick="saveTrackerEdit()">Salvar</button>
+          <button class="btn-cancel" onclick="closeTrackerEdit()">Cancelar</button>
+          <button class="btn-delete" onclick="deleteTrackerPost()">Remover</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD MODAL -->
+  <div class="overlay" id="addOverlay">
+    <div class="modal add-modal">
+      <div class="modal-header">
+        <div class="modal-title">Novo post</div>
+        <button class="modal-close" onclick="closeTrackerAdd()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="field"><label class="field-label">Título / tema</label><input type="text" id="addTitle" placeholder="Ex: Post sobre a decisão de não me mudar..."></div>
+        <div class="field"><label class="field-label">Canal</label><select id="addCanal"><option value="ig">Instagram</option><option value="li">LinkedIn</option></select></div>
+        <div class="field"><label class="field-label">Fase</label><select id="addFase"><option value="fase0">Fase 0 · IG</option><option value="mes1">Mês 1</option><option value="mes2">Mês 2</option><option value="mes3">Mês 3</option></select></div>
+        <div class="field"><label class="field-label">Pilares / tags</label><input type="text" id="addTags" placeholder="Ex: paternidade, varejo, Fast..."></div>
+        <div class="modal-actions">
+          <button class="btn-save" onclick="saveTrackerAdd()">Criar post</button>
+          <button class="btn-cancel" onclick="closeTrackerAdd()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+</div><!-- end tab-tracker -->
 
 <script>
+// ─── TAB SWITCHING ────────────────────────────────────────────────────────────
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.top-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+  if (name === 'tracker') renderTracker();
+  if (name === 'playbook') window.scrollTo(0,0);
+}
+
+// ─── PLAYBOOK SCRIPT ──────────────────────────────────────────────────────────
+
 function togglePost(header){
   const body=header.nextElementSibling;
   const icon=header.querySelector('.post-toggle');
@@ -1533,6 +1814,301 @@ const observer=new IntersectionObserver((entries)=>{
   });
 },{threshold:0.25});
 document.querySelectorAll('[id]').forEach(el=>observer.observe(el));
+
+
+// ─── TRACKER SCRIPT ───────────────────────────────────────────────────────────
+
+// ─── DATA ────────────────────────────────────────────────────────────────────
+
+const STATUS = [
+  { id: 0, label: 'Não iniciado',     color: 'rgba(255,255,255,0.35)', bg: 'rgba(255,255,255,0.08)' },
+  { id: 1, label: 'Foto escolhida',   color: '#fbbf24',                bg: 'rgba(251,191,36,0.12)'  },
+  { id: 2, label: 'Preset aplicado',  color: '#63b3ed',                bg: 'rgba(99,179,237,0.12)'  },
+  { id: 3, label: 'Legenda pronta',   color: '#a78bfa',                bg: 'rgba(167,139,250,0.12)' },
+  { id: 4, label: 'Pronto p/ publicar', color: '#C8FF00',              bg: 'rgba(200,255,0,0.12)'   },
+  { id: 5, label: 'Publicado ✓',      color: '#34d399',                bg: 'rgba(52,211,153,0.12)'  },
+];
+
+const FOTO_HINTS = {
+  'ig-f0-1': 'Você com os dois filhos. Momento cotidiano (banho, brincadeira, leitura). Luz natural de janela lateral. Preset quente. Formato 4:5.',
+  'ig-f0-2': 'Você em momento de reflexão — olhando para o lado ou para baixo. Pode ser interior perto de janela ou em culto/igreja. Preset quente com sombras levemente mais profundas.',
+  'ig-f0-3': 'Você no ambiente da Fast — pode ser de costas olhando o escritório, ou plano médio com ambiente ao fundo. Identidade da Fast visível ao fundo é um plus. Preset frio.',
+  'ig-f0-4': 'Bastidor real de reunião ou momento de trabalho. Mesa com itens reais, ambiente com vida. Não precisa estar posado. Pode incluir pessoas ao fundo. Preset frio levemente mais quente.',
+  'ig-f0-5': 'Qualquer momento real do cotidiano com boa luz. Café da manhã, treino, cena de casa. Pode ser ambiente sem pessoas. Preset quente, tratamento mais leve.',
+  'ig-f0-6': 'Você com o Heitor (ou os dois filhos) em contexto que misture os dois mundos — ou simplesmente vocês dois interagindo. Melhor foto dos 6. Luz natural. Preset quente. Referência: post do Angeloni com o Heitor (Out 2024).',
+};
+
+const DEFAULT_POSTS = [
+  // FASE 0 — IG
+  { id:'ig-f0-1', title:'Post 1 — Paternidade', canal:'ig', fase:'fase0', status:0, semana:'Fase 0 · Post 1', tags:['paternidade','família'], legenda:'O Pedro chegou há poucos meses. E eu ainda estou aprendendo a ser pai de dois.\n\nCom o Heitor aprendi o ritmo. Com o Pedro estou aprendendo que cada filho tem o seu. Que não existe manual. Que o melhor que você pode fazer é estar presente — completamente presente — no tempo que cada um pede.\n\nSer pai de dois não é duas vezes mais difícil.\nÉ duas vezes mais inteiro.\n\n#paternidade #família #pedro #heitor', foto:'', preset:'', data:'', notas:'' },
+  { id:'ig-f0-2', title:'Post 2 — Fé e propósito', canal:'ig', fase:'fase0', status:0, semana:'Fase 0 · Post 2', tags:['fé','propósito'], legenda:'Teve um período da minha vida em que eu planejava tudo.\n\nAí vieram os filhos. A saída de um emprego que eu amava. A entrada num mundo completamente novo.\n\nE eu aprendi, na prática, que os melhores capítulos da minha história não foram os que eu escrevi com planejamento. Foram os que eu aceitei com fé.\n\nEssa tem sido a minha base.\n\n#fé #propósito #família #vida', foto:'', preset:'', data:'', notas:'' },
+  { id:'ig-f0-3', title:'Post 3 — A decisão', canal:'ig', fase:'fase0', status:0, semana:'Fase 0 · Post 3', tags:['transição','carreira'], legenda:'Quando me disseram que a empresa ia mudar de cidade, eu tinha duas opções.\n\nIr junto — e continuar numa carreira que eu conhecia bem, num lugar seguro.\nOu ficar — e descobrir o que eu era capaz de construir fora dali.\n\nFiquei.\n\nNão por coragem. Mas porque sabia que, se fosse embora, estava escolhendo a segurança no lugar da possibilidade.\n\n#transição #carreira #propósito #FastDigital360', foto:'', preset:'', data:'', notas:'' },
+  { id:'ig-f0-4', title:'Post 4 — Bastidor da Fast', canal:'ig', fase:'fase0', status:0, semana:'Fase 0 · Post 4', tags:['bastidor','Fast'], legenda:'Hoje tive uma reunião que me lembrou por que saí do varejo.\n\nNo varejo, resultado era inegociável. Você vendia ou não vendia. Ponto.\n\nAqui, pela primeira vez, ouvi algo que nunca ouvi antes:\n"eu não sei exatamente o que quero, mas sei que o que estou fazendo não está funcionando."\n\nEstou aprendendo a fazer perguntas diferentes.\n\n#marketing #gestão #aprendizado #FastDigital360', foto:'', preset:'', data:'', notas:'' },
+  { id:'ig-f0-5', title:'Post 5 — Cotidiano', canal:'ig', fase:'fase0', status:0, semana:'Fase 0 · Post 5', tags:['cotidiano','vida real'], legenda:'[Escreva a partir de um momento real da semana — quanto mais específico, mais humano.]', foto:'', preset:'', data:'', notas:'' },
+  { id:'ig-f0-6', title:'Post 6 — Pai + trabalho', canal:'ig', fase:'fase0', status:0, semana:'Fase 0 · Post 6', tags:['paternidade','trabalho'], legenda:'Semana passada o Heitor me perguntou o que eu faço no trabalho.\n\nTentei explicar. Falei de marketing, de clientes, de estratégia.\nEle olhou pra mim e disse: "Mas você ajuda as pessoas?"\n\nSim. É exatamente isso.\n\nO Heitor não sabe, mas ele resume bem o que eu quero construir na Fast:\numa empresa que ajuda as pessoas. De verdade.\n\n#paternidade #trabalho #FastDigital360 #família', foto:'', preset:'', data:'', notas:'' },
+  // MÊS 1 — LI
+  { id:'li-m1-1', title:'"Passei 6 anos decidindo quais marcas entravam na gôndola"', canal:'li', fase:'mes1', status:0, semana:'S3 · Seg', tags:['varejo','transição'], legenda:'Passei 6 anos em uma das maiores redes de supermercados do Sul do Brasil.\n\nAcordava pensando em margem, giro, ruptura e resultado.\nNão em curtidas.\n\nQuando saí e entrei no mundo do marketing digital, levei um susto.\n\nNão pela criatividade — essa o setor tem de sobra.\nPelo que faltava: obsessão por resultado real.\n\n[Adicione um detalhe concreto e específico antes de publicar]\n\n#marketing #varejo #negócios #empreendedorismo #FastDigital360', foto:'', preset:'', data:'', notas:'🚨 Risco de IA médio — adicionar detalhe concreto antes de publicar.' },
+  { id:'li-m1-2', title:'"No varejo, produto que não gira em 30 dias muda a estratégia"', canal:'li', fase:'mes1', status:0, semana:'S3 · Qua', tags:['varejo','marketing'], legenda:'Fui comprador por anos.\n\nCada fornecedor tinha um prazo claro para provar resultado.\nSem desculpa de "o mercado está difícil".\n\nO produto vende ou não vende. E se não vende, você muda alguma coisa.\n\nO cliente não contrata marketing.\nO cliente contrata crescimento.\n\n[Substitua a estrutura simétrica por uma situação real antes de publicar]\n\n#marketing #resultado #negócios #varejo', foto:'', preset:'', data:'', notas:'🚨 Risco de IA alto — estrutura "No varejo X, no marketing Y" muito simétrica. Substituir por situação real.' },
+  { id:'li-m1-3', title:'"Primeira semana publicando aqui"', canal:'li', fase:'mes1', status:0, semana:'S3 · Sex', tags:['vida real','posicionamento'], legenda:'Nunca fui muito de redes sociais profissionais.\n\nMudei de ideia quando vi colegas — profissionais excelentes — sendo pegos de surpresa por uma mudança corporativa e correndo para atualizar o perfil às pressas.\n\nNinguém deveria precisar de urgência para construir sua própria autoridade.\n\nEsse espaço é pra isso.\n\n[Adicione o detalhe concreto do episódio]\n\n#linkedin #posicionamento #liderança', foto:'', preset:'', data:'', notas:'✅ Risco de IA baixo.' },
+  { id:'li-m1-4', title:'"3 coisas que o varejo me ensinou que nenhum curso ensina"', canal:'li', fase:'mes1', status:0, semana:'S4 · Seg', tags:['varejo','educativo'], legenda:'[Carrossel — Fast produz]\n\nGiro de produto = Funil de vendas\nRuptura = Lead perdido\nPrecificação = Posicionamento de marca\n\n[Transforme pelo menos uma lição em história real antes de publicar]\n\n#varejo #marketing #negócios #gestão', foto:'', preset:'', data:'', notas:'🚨 Risco de IA alto — 3 lições numeradas com estrutura idêntica. Transformar pelo menos uma em história real.' },
+  { id:'li-m1-5', title:'"O que ninguém te conta sobre assumir o CEO de uma empresa que já existia"', canal:'li', fase:'mes1', status:0, semana:'S4 · Qua', tags:['gestão','liderança'], legenda:'Quando o Jean me convidou para assumir a Fast Digital 360, a empresa já tinha time, clientes e cultura.\n\nEu era o novo. Em todos os sentidos.\n\nA primeira tentação foi chegar com respostas.\n\nMas a bagagem não serve de nada se você não entende o terreno.\n\n[Substitua pelo menos um item das listas por situação concreta]\n\n#liderança #gestão #CEO #transição', foto:'', preset:'', data:'', notas:'⚠️ Risco de IA médio — substituir itens das listas por situações concretas.' },
+  { id:'li-m1-6', title:'"Vi colegas correndo para atualizar o LinkedIn às pressas"', canal:'li', fase:'mes1', status:0, semana:'S4 · Sex', tags:['executivo','posicionamento'], legenda:'Profissionais excelentes. Anos de experiência. Resultados reais.\n\nMas o LinkedIn estava parado há meses.\nA rede, esquecida.\nA autoridade, construída só internamente — dentro de uma empresa que ia embora.\n\nAutoridade não se constrói em crise. Se constrói em silêncio, ao longo do tempo.\n\n[Adicione detalhe sensorial do momento]\n\n#executivo #carreira #posicionamento #autoridade', foto:'', preset:'', data:'', notas:'✅ Risco de IA baixo. Adicionar detalhe sensorial do momento.' },
+  // MÊS 2 — LI
+  { id:'li-m2-1', title:'"Por que indústrias perdem espaço no varejo com produto bom"', canal:'li', fase:'mes2', status:0, semana:'S7 · Seg', tags:['indústria','varejo'], legenda:'Fui o comprador que tomava essa decisão por anos.\n\nRaramente o produto perdia espaço por ser ruim.\n\n1. Presença digital fraca\n2. Comunicação genérica\n3. Não falar a língua do comprador\n\n[Abrir com caso real antes de publicar]\n\n#varejo #industria #marketing #b2b', foto:'', preset:'', data:'', notas:'🚨 Risco de IA alto — abrir com caso real de fornecedor/categoria que perdeu espaço.' },
+  { id:'li-m2-2', title:'"O que aprendi sobre decisão observando minha família"', canal:'li', fase:'mes2', status:0, semana:'S8 · Qua', tags:['vida real','gestão'], legenda:'As melhores decisões raramente são as mais racionais.\nSão as mais alinhadas com o que a pessoa acredita.\n\nLiderar me ensinou que clareza de valores não é filosofia.\nÉ a ferramenta de gestão mais prática que existe.\n\n[Adicionar situação específica que disparou essa reflexão]\n\n#liderança #família #valores #gestão', foto:'', preset:'', data:'', notas:'⚠️ Risco de IA médio — texto abstrato. Adicionar cena real concreta.' },
+  { id:'li-m2-3', title:'"5 perguntas que todo executivo CLT deveria se fazer hoje"', canal:'li', fase:'mes2', status:0, semana:'S9 · Seg', tags:['executivo','carreira'], legenda:'Não para sair de onde está.\nPara não depender só de onde está.\n\n[Carrossel — Fast produz]\n[Adicionar episódio real do Angeloni na abertura]\n\n#executivo #carreira #marcapessoal #posicionamento', foto:'', preset:'', data:'', notas:'🚨 Risco de IA alto — adicionar episódio real do Angeloni na abertura do post.' },
+  { id:'li-m2-4', title:'"O que 2 meses no marketing ensinaram que 6 no varejo não ensinaram" [vídeo]', canal:'li', fase:'mes2', status:0, semana:'S10 · Qua', tags:['vídeo','transição'], legenda:'[Script vídeo 60–90s]\n\n"Passei 6 anos no varejo achando que entendia de negócio.\nEntrei no marketing e percebi que entendia — mas de um lado só.\n\nO varejo me deu a obsessão por número.\nO marketing me está dando a linguagem para comunicar esse número.\n\nOs dois juntos? É isso que a Fast faz pelos nossos clientes."\n\n[Gravar no escritório da Fast. Adicionar exemplo concreto no script.]\n\n#marketing #varejo #resultado #FastDigital360', foto:'', preset:'', data:'', notas:'⚠️ Risco de IA médio — o vídeo mitiga. Adicionar exemplo concreto antes de gravar.' },
+  // MÊS 3 — LI
+  { id:'li-m3-1', title:'Lançamento da série "O que o varejo ensina que o marketing ignora"', canal:'li', fase:'mes3', status:0, semana:'S11 · Seg', tags:['série','varejo'], legenda:'Toda semana, uma lição do varejo aplicada ao marketing e aos negócios.\n\nSem teoria. Sem achismo.\nCom exemplos reais de quem viveu os dois lados.\n\nSalva esse post e ativa as notificações.\n\n[Adicionar frase sobre por que você tem autoridade: "Fui o comprador do outro lado por 6 anos."]\n\n#varejo #marketing #série #negócios', foto:'', preset:'', data:'', notas:'✅ Risco de IA baixo.' },
+  { id:'li-m3-2', title:'"90 dias publicando aqui — o que funcionou e o que estou construindo" [vídeo]', canal:'li', fase:'mes3', status:0, semana:'S13 · Sex', tags:['reflexão','vídeo'], legenda:'Quando comecei, não sabia se tinha algo relevante a dizer.\n\nTrês meses depois:\n[Substituir listas por episódios reais — uma semana que quase parou, um post que surpreendeu, uma conversa que surgiu]\n\n#linkedin #autoridade #aprendizado #construção', foto:'', preset:'', data:'', notas:'⚠️ Risco de IA médio — substituir listas por episódios reais da sua experiência.' },
+];
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let posts = [];
+let editingId = null;
+let filters = { canal: 'all', fase: 'all' };
+
+const STORAGE_KEY = 'tracker_matheus_v1';
+
+async function loadTrackerPosts() {
+  try {
+    const res = await window.storage.get(STORAGE_KEY);
+    if (res && res.value) {
+      posts = JSON.parse(res.value);
+    } else {
+      posts = DEFAULT_POSTS.map(p => ({...p}));
+      await saveTrackerPosts();
+    }
+  } catch {
+    posts = DEFAULT_POSTS.map(p => ({...p}));
+  }
+  renderTracker();
+}
+
+async function saveTrackerPosts() {
+  try {
+    await window.storage.set(STORAGE_KEY, JSON.stringify(posts));
+  } catch(e) {
+    console.error('Save error:', e);
+  }
+}
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+function renderTracker() {
+  // clear columns
+  for (let i = 0; i <= 5; i++) {
+    document.getElementById(`body-${i}`).innerHTML = '';
+    document.getElementById(`cnt-${i}`).textContent = '0';
+  }
+
+  const counts = [0,0,0,0,0,0];
+  let published = 0;
+
+  posts.forEach(post => {
+    const visible = matchesTrackerFilter(post);
+    const card = buildTrackerCard(post, visible);
+    document.getElementById(`body-${post.status}`).appendChild(card);
+    if (visible) counts[post.status]++;
+    if (post.status === 5) published++;
+  });
+
+  for (let i = 0; i <= 5; i++) {
+    document.getElementById(`cnt-${i}`).textContent = counts[i];
+    const body = document.getElementById(`body-${i}`);
+    if (counts[i] === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'empty';
+      empty.textContent = 'Nenhum post aqui';
+      body.appendChild(empty);
+    }
+  }
+
+  const total = posts.length;
+  const pct = total ? Math.round((published / total) * 100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+}
+
+function matchesTrackerFilter(post) {
+  if (filters.canal !== 'all' && post.canal !== filters.canal) return false;
+  if (filters.fase !== 'all' && post.fase !== filters.fase) return false;
+  return true;
+}
+
+function buildTrackerCard(post, visible) {
+  const st = STATUS[post.status];
+  const div = document.createElement('div');
+  div.className = 'post-card' + (visible ? '' : ' hidden');
+  div.onclick = () => openEdit(post.id);
+
+  const stepsHtml = [1,2,3,4,5].map(i =>
+    `<div class="step ${post.status >= i ? 'done' : ''}"></div>`
+  ).join('');
+
+  const tagsHtml = (post.tags || []).map(t =>
+    `<span class="pc-tag">${t}</span>`
+  ).join('');
+
+  const previewText = post.legenda
+    ? post.legenda.replace(/\n/g, ' ').substring(0, 80) + '...'
+    : 'Sem legenda ainda.';
+
+  div.innerHTML = `
+    <div class="pc-top">
+      <span class="pc-channel ch-${post.canal}">${post.canal === 'li' ? 'LI' : 'IG'}</span>
+      <div class="pc-title">${post.title}</div>
+    </div>
+    <div class="pc-meta">${post.semana}${post.data ? ' · ' + formatDate(post.data) : ''}</div>
+    ${tagsHtml ? `<div class="pc-tags">${tagsHtml}</div>` : ''}
+    <div class="pc-steps">${stepsHtml}</div>
+    ${post.legenda ? `<div class="pc-preview">${previewText}</div>` : ''}
+  `;
+  return div;
+}
+
+function formatDate(d) {
+  if (!d) return '';
+  const [y,m,day] = d.split('-');
+  return `${day}/${m}`;
+}
+
+// ─── EDIT MODAL ───────────────────────────────────────────────────────────────
+function openTrackerEdit(id) {
+  const post = posts.find(p => p.id === id);
+  if (!post) return;
+  editingId = id;
+
+  document.getElementById('modalTitle').textContent = post.title;
+  document.getElementById('fieldFoto').value = post.foto || '';
+  document.getElementById('fieldPreset').value = post.preset || '';
+  document.getElementById('fieldLegenda').value = post.legenda || '';
+  document.getElementById('fieldData').value = post.data || '';
+  document.getElementById('fieldNotas').value = post.notas || '';
+
+  // Status buttons
+  const sb = document.getElementById('statusBtns');
+  sb.innerHTML = STATUS.map(s => `
+    <button class="step-btn ${post.status === s.id ? 'active' : ''}"
+      style="${post.status === s.id ? `background:${s.bg};border-color:${s.color};color:${s.color};` : ''}"
+      onclick="setTrackerStatus(${s.id})">
+      <div class="step-dot" style="background:${s.color}"></div>
+      ${s.label}
+    </button>
+  `).join('');
+
+  // Foto hints
+  const hints = FOTO_HINTS[id];
+  const hw = document.getElementById('fotoHints');
+  if (hints) {
+    hw.innerHTML = `
+      <div class="foto-hints">
+        <div class="foto-hints-title">Orientações fotográficas</div>
+        <div class="foto-hints-text">${hints}</div>
+      </div>
+    `;
+  } else {
+    hw.innerHTML = '';
+  }
+
+  document.getElementById('editOverlay').classList.add('open');
+}
+
+function setTrackerStatus(statusId) {
+  const post = posts.find(p => p.id === editingId);
+  if (!post) return;
+  post.status = statusId;
+  const sb = document.getElementById('statusBtns');
+  sb.innerHTML = STATUS.map(s => `
+    <button class="step-btn ${statusId === s.id ? 'active' : ''}"
+      style="${statusId === s.id ? `background:${s.bg};border-color:${s.color};color:${s.color};` : ''}"
+      onclick="setTrackerStatus(${s.id})">
+      <div class="step-dot" style="background:${s.color}"></div>
+      ${s.label}
+    </button>
+  `).join('');
+}
+
+function saveTrackerEdit() {
+  const post = posts.find(p => p.id === editingId);
+  if (!post) return;
+  post.foto = document.getElementById('fieldFoto').value;
+  post.preset = document.getElementById('fieldPreset').value;
+  post.legenda = document.getElementById('fieldLegenda').value;
+  post.data = document.getElementById('fieldData').value;
+  post.notas = document.getElementById('fieldNotas').value;
+  saveTrackerPosts();
+  renderTracker();
+  closeEdit();
+  showTrackerToast('Post salvo ✓');
+}
+
+function deleteTrackerPost() {
+  if (!confirm('Remover este post do tracker?')) return;
+  posts = posts.filter(p => p.id !== editingId);
+  saveTrackerPosts();
+  renderTracker();
+  closeEdit();
+  showTrackerToast('Post removido');
+}
+
+function closeTrackerEdit() {
+  document.getElementById('editOverlay').classList.remove('open');
+  editingId = null;
+}
+
+// ─── ADD MODAL ────────────────────────────────────────────────────────────────
+function openTrackerAdd() {
+  document.getElementById('addTitle').value = '';
+  document.getElementById('addCanal').value = 'ig';
+  document.getElementById('addFase').value = 'fase0';
+  document.getElementById('addTags').value = '';
+  document.getElementById('addOverlay').classList.add('open');
+}
+
+function saveTrackerAdd() {
+  const title = document.getElementById('addTitle').value.trim();
+  if (!title) { alert('Adicione um título para o post.'); return; }
+  const canal = document.getElementById('addCanal').value;
+  const fase = document.getElementById('addFase').value;
+  const tagsRaw = document.getElementById('addTags').value;
+  const tags = tagsRaw ? tagsRaw.split(',').map(t => t.trim()).filter(Boolean) : [];
+  const id = 'custom-' + Date.now();
+  posts.push({ id, title, canal, fase, status: 0, semana: fase, tags, legenda: '', foto: '', preset: '', data: '', notas: '' });
+  saveTrackerPosts();
+  renderTracker();
+  closeAdd();
+  showTrackerToast('Post criado ✓');
+}
+
+function closeTrackerAdd() {
+  document.getElementById('addOverlay').classList.remove('open');
+}
+
+// ─── FILTERS ─────────────────────────────────────────────────────────────────
+function setTrackerFilter(type, value, btn) {
+  filters[type] = value;
+  const group = btn.parentElement.querySelectorAll('.filter-btn');
+  group.forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTracker();
+}
+
+// ─── TOAST ────────────────────────────────────────────────────────────────────
+function showTrackerToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// ─── KEYBOARD ────────────────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeEdit(); closeAdd(); }
+});
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+loadTrackerPosts();
+
 </script>
 </body>
 </html>
